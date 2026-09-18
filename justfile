@@ -10,3 +10,5 @@ check:
 
 run:
     xdg-open ./dist/index.html
+
+ci: check
