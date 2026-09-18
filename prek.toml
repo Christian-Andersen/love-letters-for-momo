@@ -1,0 +1,9 @@
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "htmlhint"
+name = "htmlhint"
+language = "system"
+pass_filenames = false
+entry = "npx --yes htmlhint ./dist/index.html"
