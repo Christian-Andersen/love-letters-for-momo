@@ -6,4 +6,4 @@ id = "htmlhint"
 name = "htmlhint"
 language = "system"
 pass_filenames = false
-entry = "npx --yes htmlhint ./dist/index.html"
+entry = "npx --yes htmlhint@1.9.2 ./dist/index.html"
