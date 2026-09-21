@@ -13,6 +13,27 @@
       "matchManagers": ["nix"],
       "groupName": "Nix flake inputs",
       "schedule": ["before 6am on Monday"]
+    },
+    {
+      "matchDatasources": ["npm"],
+      "matchManagers": ["custom.regex"],
+      "groupName": "npx CLI tools"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)prek\\.toml$",
+        "(^|/)\\.forgejo/.*\\.ya?ml$",
+        "(^|/)\\.github/.*\\.ya?ml$",
+        "(^|/).*\\.sh$"
+      ],
+      "matchStrings": [
+        "npx(?: --yes| -y)? (?<depName>@?[a-zA-Z][\\w.-]*)(?:@(?<currentValue>\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?))"
+      ],
+      "datasourceTemplate": "npm",
+      "versioningTemplate": "npm"
     }
   ]
 }
