@@ -3,5 +3,16 @@
   "extends": ["config:recommended"],
   "nix": {
     "enabled": true
-  }
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on Monday"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["nix"],
+      "groupName": "Nix flake inputs",
+      "schedule": ["before 6am on Monday"]
+    }
+  ]
 }
