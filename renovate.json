@@ -18,6 +18,11 @@
       "matchDatasources": ["npm"],
       "matchManagers": ["custom.regex"],
       "groupName": "npx CLI tools"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "Forgejo workflow actions",
+      "schedule": ["every 2 weeks on monday"]
     }
   ],
   "customManagers": [
