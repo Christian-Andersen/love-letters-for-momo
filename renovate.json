@@ -5,37 +5,41 @@
     "enabled": true
   },
   "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 6am on Monday"]
+    "enabled": true
   },
   "packageRules": [
     {
+      "description": "Group Nix flake input updates into a single PR",
       "matchManagers": ["nix"],
+      "matchUpdateTypes": ["digest"],
       "groupName": "Nix flake inputs",
-      "schedule": ["before 6am on Monday"]
+      "groupSlug": "nix-flake-inputs"
     },
     {
-      "matchDatasources": ["npm"],
-      "matchManagers": ["custom.regex"],
-      "groupName": "npx CLI tools"
-    },
-    {
+      "description": "Group non-major CI action updates in .forgejo/workflows; major bumps get their own PR",
       "matchManagers": ["github-actions"],
-      "groupName": "Forgejo workflow actions",
-      "schedule": ["every 2 weeks on monday"]
+      "matchUpdateTypes": ["digest", "patch", "minor"],
+      "groupName": "CI workflow actions",
+      "groupSlug": "ci-workflow-actions"
+    },
+    {
+      "description": "Group version-pinned npx CLI tools into a single PR",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["npm"],
+      "groupName": "npx CLI tools",
+      "groupSlug": "npx-cli-tools"
     }
   ],
   "customManagers": [
     {
       "customType": "regex",
+      "description": "Track version-pinned npx CLI tools in prek.toml hook entries and Forgejo workflows",
       "managerFilePatterns": [
         "/(^|/)prek\\.toml$/",
-        "/(^|/)\\.forgejo/.*\\.ya?ml$/",
-        "/(^|/)\\.github/.*\\.ya?ml$/",
-        "/(^|/).*\\.sh$/"
+        "/(^|/)\\.forgejo/.+\\.ya?ml$/"
       ],
       "matchStrings": [
-        "npx(?: --yes| -y)? (?<depName>@?[a-zA-Z][\\w.-]*)(?:@(?<currentValue>\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?))"
+        "npx(?: --yes| -y)? (?<depName>@?[a-zA-Z][\\w.-]*?)(?:@(?<currentValue>\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?))"
       ],
       "datasourceTemplate": "npm",
       "versioningTemplate": "npm"
